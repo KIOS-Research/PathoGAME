@@ -1,0 +1,190 @@
+<Layout printResolution="300" name="Layout 1" worldFileMap="" units="mm">
+ <Snapper snapToGuides="1" tolerance="5" snapToItems="1" snapToGrid="0"/>
+ <Grid resolution="10" offsetY="0" resUnits="mm" offsetX="0" offsetUnits="mm"/>
+ <PageCollection>
+  <symbol name="" clip_to_extent="1" type="fill" alpha="1" force_rhr="0">
+   <data_defined_properties>
+    <Option type="Map">
+     <Option value="" name="name" type="QString"/>
+     <Option name="properties"/>
+     <Option value="collection" name="type" type="QString"/>
+    </Option>
+   </data_defined_properties>
+   <layer locked="0" enabled="1" class="SimpleFill" pass="0">
+    <Option type="Map">
+     <Option value="3x:0,0,0,0,0,0" name="border_width_map_unit_scale" type="QString"/>
+     <Option value="255,255,255,255" name="color" type="QString"/>
+     <Option value="miter" name="joinstyle" type="QString"/>
+     <Option value="0,0" name="offset" type="QString"/>
+     <Option value="3x:0,0,0,0,0,0" name="offset_map_unit_scale" type="QString"/>
+     <Option value="MM" name="offset_unit" type="QString"/>
+     <Option value="35,35,35,255" name="outline_color" type="QString"/>
+     <Option value="no" name="outline_style" type="QString"/>
+     <Option value="0.26" name="outline_width" type="QString"/>
+     <Option value="MM" name="outline_width_unit" type="QString"/>
+     <Option value="solid" name="style" type="QString"/>
+    </Option>
+    <prop k="border_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+    <prop k="color" v="255,255,255,255"/>
+    <prop k="joinstyle" v="miter"/>
+    <prop k="offset" v="0,0"/>
+    <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+    <prop k="offset_unit" v="MM"/>
+    <prop k="outline_color" v="35,35,35,255"/>
+    <prop k="outline_style" v="no"/>
+    <prop k="outline_width" v="0.26"/>
+    <prop k="outline_width_unit" v="MM"/>
+    <prop k="style" v="solid"/>
+    <data_defined_properties>
+     <Option type="Map">
+      <Option value="" name="name" type="QString"/>
+      <Option name="properties"/>
+      <Option value="collection" name="type" type="QString"/>
+     </Option>
+    </data_defined_properties>
+   </layer>
+  </symbol>
+  <LayoutItem positionLock="false" opacity="1" groupUuid="" templateUuid="{4f8b5dd7-210c-4230-a05e-35482af080be}" excludeFromExports="0" frame="false" zValue="0" frameJoinStyle="miter" referencePoint="0" background="true" blendMode="0" size="82,48,mm" positionOnPage="0,0,mm" position="0,0,mm" outlineWidthM="0.3,mm" itemRotation="0" uuid="{4f8b5dd7-210c-4230-a05e-35482af080be}" type="65638" visibility="1" id="">
+   <FrameColor green="0" red="0" blue="0" alpha="255"/>
+   <BackgroundColor green="255" red="255" blue="255" alpha="255"/>
+   <LayoutObject>
+    <dataDefinedProperties>
+     <Option type="Map">
+      <Option value="" name="name" type="QString"/>
+      <Option name="properties"/>
+      <Option value="collection" name="type" type="QString"/>
+     </Option>
+    </dataDefinedProperties>
+    <customproperties>
+     <Option/>
+    </customproperties>
+   </LayoutObject>
+   <symbol name="" clip_to_extent="1" type="fill" alpha="1" force_rhr="0">
+    <data_defined_properties>
+     <Option type="Map">
+      <Option value="" name="name" type="QString"/>
+      <Option name="properties"/>
+      <Option value="collection" name="type" type="QString"/>
+     </Option>
+    </data_defined_properties>
+    <layer locked="0" enabled="1" class="SimpleFill" pass="0">
+     <Option type="Map">
+      <Option value="3x:0,0,0,0,0,0" name="border_width_map_unit_scale" type="QString"/>
+      <Option value="255,255,255,255" name="color" type="QString"/>
+      <Option value="miter" name="joinstyle" type="QString"/>
+      <Option value="0,0" name="offset" type="QString"/>
+      <Option value="3x:0,0,0,0,0,0" name="offset_map_unit_scale" type="QString"/>
+      <Option value="MM" name="offset_unit" type="QString"/>
+      <Option value="35,35,35,255" name="outline_color" type="QString"/>
+      <Option value="no" name="outline_style" type="QString"/>
+      <Option value="0.26" name="outline_width" type="QString"/>
+      <Option value="MM" name="outline_width_unit" type="QString"/>
+      <Option value="solid" name="style" type="QString"/>
+     </Option>
+     <prop k="border_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+     <prop k="color" v="255,255,255,255"/>
+     <prop k="joinstyle" v="miter"/>
+     <prop k="offset" v="0,0"/>
+     <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+     <prop k="offset_unit" v="MM"/>
+     <prop k="outline_color" v="35,35,35,255"/>
+     <prop k="outline_style" v="no"/>
+     <prop k="outline_width" v="0.26"/>
+     <prop k="outline_width_unit" v="MM"/>
+     <prop k="style" v="solid"/>
+     <data_defined_properties>
+      <Option type="Map">
+       <Option value="" name="name" type="QString"/>
+       <Option name="properties"/>
+       <Option value="collection" name="type" type="QString"/>
+      </Option>
+     </data_defined_properties>
+    </layer>
+   </symbol>
+  </LayoutItem>
+  <GuideCollection visible="1"/>
+ </PageCollection>
+ <LayoutItem wmsLegendWidth="50" templateUuid="{a5683648-2272-415c-b48b-72fcfb642d51}" equalColumnWidth="0" groupUuid="" zValue="2" lineSpacing="1" columnSpace="2" id="" outlineWidthM="0.3,mm" uuid="{a5683648-2272-415c-b48b-72fcfb642d51}" opacity="1" frameJoinStyle="miter" wmsLegendHeight="25" rasterBorder="1" fontColor="#000000" blendMode="0" rasterBorderWidth="0" referencePoint="0" resizeToContents="0" legendFilterByAtlas="0" positionLock="false" wrapChar="" symbolHeight="4" boxSpace="2" background="true" titleAlignment="1" splitLayer="0" visibility="1" title="" excludeFromExports="0" positionOnPage="0,0,mm" symbolAlignment="1" symbolWidth="7" rasterBorderColor="0,0,0,255" minSymbolSize="0" position="0,0,mm" type="65642" columnCount="2" size="82.9,48,mm" itemRotation="0" frame="false" maxSymbolSize="0">
+  <FrameColor green="0" red="0" blue="0" alpha="255"/>
+  <BackgroundColor green="255" red="255" blue="255" alpha="255"/>
+  <LayoutObject>
+   <dataDefinedProperties>
+    <Option type="Map">
+     <Option value="" name="name" type="QString"/>
+     <Option name="properties"/>
+     <Option value="collection" name="type" type="QString"/>
+    </Option>
+   </dataDefinedProperties>
+   <customproperties>
+    <Option/>
+   </customproperties>
+  </LayoutObject>
+  <styles>
+   <style name="title" marginBottom="3.5" alignment="1">
+    <styleFont description="MS Shell Dlg 2,16,-1,5,50,0,0,0,0,0" style=""/>
+   </style>
+   <style name="group" alignment="1" marginTop="3">
+    <styleFont description="MS Shell Dlg 2,14,-1,5,50,0,0,0,0,0" style=""/>
+   </style>
+   <style name="subgroup" alignment="1" marginTop="3">
+    <styleFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
+   </style>
+   <style name="symbol" alignment="1" marginTop="2.5">
+    <styleFont description="MS Shell Dlg 2,6.6,-1,5,50,0,0,0,0,0" style=""/>
+   </style>
+   <style name="symbolLabel" alignment="1" marginTop="2" marginLeft="2">
+    <styleFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
+   </style>
+  </styles>
+  <layer-tree-group>
+   <customproperties>
+    <Option/>
+   </customproperties>
+   <layer-tree-layer name="SENSORS" expanded="1" legend_exp="" source="Point?crs=epsg:4326&amp;uid={b5eee88e-afd3-496a-a543-3065eee3522b}" patch_size="-1,-1" checked="Qt::Checked" providerKey="memory" legend_split_behavior="0" id="SENSORS_1a699f97_e7e9_4094_a409_49b8a47d4f74">
+    <customproperties>
+     <Option type="Map">
+      <Option value="      SENSORS" name="legend/title-label" type="QString"/>
+     </Option>
+    </customproperties>
+   </layer-tree-layer>
+   <layer-tree-layer name="Anytown_reservoirs" expanded="1" legend_exp="" source="C:\Users/mkiria01/AppData/Roaming/QGIS/QGIS3\profiles\pathogame/python/plugins\PathoTRACK\dataset\networks\Anytown\Anytown_reservoirs.shp" patch_size="-1,-1" checked="Qt::Checked" providerKey="ogr" legend_split_behavior="0" id="Anytown_reservoirs_d960088f_098f_479f_9b01_f9b9a8df9c08">
+    <customproperties>
+     <Option type="Map">
+      <Option value="RESERVOIRS" name="legend/title-label" type="QString"/>
+     </Option>
+    </customproperties>
+   </layer-tree-layer>
+   <layer-tree-layer name="Anytown_pipes" expanded="1" legend_exp="" source="C:\Users/mkiria01/AppData/Roaming/QGIS/QGIS3\profiles\pathogame/python/plugins\PathoTRACK\dataset\networks\Anytown\Anytown_pipes.shp" patch_size="-1,-1" checked="Qt::Checked" providerKey="ogr" legend_split_behavior="0" id="Anytown_pipes_2562be3a_0d95_4c55_8153_45ca446c1523">
+    <customproperties>
+     <Option type="Map">
+      <Option value="         PIPES" name="legend/title-label" type="QString"/>
+     </Option>
+    </customproperties>
+   </layer-tree-layer>
+   <layer-tree-layer name="Anytown_junctions" expanded="1" legend_exp="" source="C:\Users/mkiria01/AppData/Roaming/QGIS/QGIS3\profiles\pathogame/python/plugins\PathoTRACK\dataset\networks\Anytown\Anytown_junctions.shp" patch_size="0,12" checked="Qt::Checked" providerKey="ogr" legend_split_behavior="0" id="Anytown_junctions_5f820bc6_5205_49aa_8c37_61a99cf65e02">
+    <customproperties>
+     <Option type="Map">
+      <Option value="JUNCTION" name="legend/label-0" type="QString"/>
+      <Option value="0,12" name="legend/symbol-size-0" type="QString"/>
+      <Option value="0,12" name="legend/symbol-size-1" type="QString"/>
+      <Option value="0,12" name="legend/symbol-size-2" type="QString"/>
+      <Option value="hidden" name="legend/title-style" type="QString"/>
+     </Option>
+    </customproperties>
+   </layer-tree-layer>
+   <custom-order enabled="0">
+    <item>Anytown_pipes_2562be3a_0d95_4c55_8153_45ca446c1523</item>
+    <item>Anytown_reservoirs_d960088f_098f_479f_9b01_f9b9a8df9c08</item>
+    <item>Anytown_junctions_5f820bc6_5205_49aa_8c37_61a99cf65e02</item>
+    <item>SENSORS_1a699f97_e7e9_4094_a409_49b8a47d4f74</item>
+   </custom-order>
+  </layer-tree-group>
+ </LayoutItem>
+ <customproperties>
+  <Option type="Map">
+   <Option value="png" name="atlasRasterFormat" type="QString"/>
+   <Option value="true" name="singleFile" type="bool"/>
+  </Option>
+ </customproperties>
+ <Atlas enabled="0" hideCoverage="0" sortFeatures="0" filenamePattern="'output_'||@atlas_featurenumber" coverageLayer="" pageNameExpression="" filterFeatures="0"/>
+</Layout>
