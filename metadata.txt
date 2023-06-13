@@ -6,7 +6,7 @@
 name=PathoGAME
 qgisMinimumVersion=3.0
 description=The goal is to find the location of the contamination as soon as possible. 
-version=0.1
+version=0.2
 author=KIOS Research and Innovation Center of Excellence (KIOS CoE)
 email=mkiria01@ucy.ac.cy
 
@@ -25,7 +25,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=epyt,epanet,inp,network,pathocert,pathogame
 
-homepage=https://pathocert.eu/
+homepage=https://github.com/KIOS-Research/PathoGAME
 category=Plugins
 icon=icon.png
 # experimental flag
