@@ -55,6 +55,7 @@ class pathoGAME:
         :type iface: QgsInterface
         """
         # Save reference to the QGIS interface
+        self.temp_locations = None
         self.heart_choices = []
         self.type_files = []
         self.clickPhotos = None
@@ -317,8 +318,8 @@ class pathoGAME:
                 sel = feature
                 break
 
-            self.iface.messageBar().pushMessage("PathoGAME", f"Sensor detection at Junction {sel.id()}",
-                                                level=0, duration=2)
+            self.iface.messageBar().pushMessage("PathoGAME", f"Sensor detection at Junction {sel.attributes()[sel.fieldNameIndex('id')]}",
+                                                level=0, duration=6)
 
             self.junlyr.changeAttributeValue(sel.id(), sel.fieldNameIndex('desc'), 'DETECT')
             self.junlyr.reload()
@@ -336,6 +337,7 @@ class pathoGAME:
 
         if self.time_left_int == 0:
             self.submit_game()
+            self.dockwidget.submit_btn.setEnabled(True)
             self.time_game.stop()
             self.detect_time.stop()
             self.dockwidget.timer_lbl.setText(str('00:00'))
@@ -349,7 +351,7 @@ class pathoGAME:
         if (self.time_left_int % 40) == 0:
             if self.show_answer == 0:
                 self.iface.messageBar().pushMessage("PathoGAME", f"The location of the contaminant at level {str(self.level_index)} show "
-                                          f"in orange color on map.", level=0, duration=2)
+                                          f"in orange color on map.", level=0, duration=6)
             try:
                 QgsProject.instance().removeMapLayer(self.temp_location)
             except:
@@ -710,26 +712,39 @@ class pathoGAME:
     def submit_game(self):
 
         self.temp_location = QgsVectorLayer("Point?crs=epsg:4326", "LOCATION", "memory")
+        self.temp_locations = QgsVectorLayer("Point?crs=epsg:4326", "ALL-LOCATIONS", "memory")
         self.temp_location.loadNamedStyle(os.path.join(self.plugin_dir, "qmls", f'location.qml'))
+        self.temp_locations.loadNamedStyle(os.path.join(self.plugin_dir, "qmls", f'locations.qml'))
         root = QgsProject.instance().layerTreeRoot()
         g = root.findGroup(f"Level {str(self.level_index)}")
         self.insert_layer_in_group(g, self.temp_location, True)
 
         for feature_loc in self.junlyr.getFeatures():
             if feature_loc['id'] == self.location_contaminant[self.level_index - 1]:
-                contaminant_feature = feature_loc
                 feat = QgsFeature()
-                # for elem in layer.getFeatures():
-                feat.setGeometry(contaminant_feature.geometry())
+                feat.setGeometry(feature_loc.geometry())
                 self.temp_location.startEditing()
                 self.temp_location.addFeatures([feat])
                 self.temp_location.commitChanges()
                 break
+        for feature_loc in self.junlyr.getFeatures():
+            if feature_loc['id'] in self.location_contaminant:
+                feat = QgsFeature()
+                feat.setGeometry(feature_loc.geometry())
+                self.temp_locations.startEditing()
+                self.temp_locations.addFeatures([feat])
+                self.temp_locations.commitChanges()
         try:
             self.temp_location.reload()
             self.temp_location.triggerRepaint()
         except:
             pass
+        try:
+            self.temp_locations.reload()
+            self.temp_locations.triggerRepaint()
+        except:
+            pass
+        self.insert_layer_in_group(g, self.temp_locations, True)
 
         bb = self.r.encode('ascii')
         mm = base64.b64decode(bb)
