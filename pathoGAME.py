@@ -251,10 +251,14 @@ class pathoGAME:
 
         # print "** UNLOAD pathoGAME"
         try:
-            self.clear_project()
+            self.clear_project(unload=True)
+        except:
+            pass
+        try:
             self.dockwidget.close()
         except:
             pass
+
         for action in self.actions:
             self.iface.removePluginMenu(
                 self.tr(u'&pathoGAME'),
@@ -617,7 +621,7 @@ class pathoGAME:
                 self.junlyr = layer
             if ftype == 'pipes':
                 self.canvas.setExtent(layer.extent())
-                self.canvas.setMagnificationFactor(.9)
+                self.canvas.setMagnificationFactor(.8)
                 self.canvas.refresh()
 
             self.layers.append(layer)
@@ -641,7 +645,7 @@ class pathoGAME:
         self.junlyr.triggerRepaint()
         self.junlyr.commitChanges()
 
-    def clear_project(self):
+    def clear_project(self, unload=False):
         # Remove all layers from map canvas
         # for lyr in QgsProject.instance().mapLayers().values():
         #    QgsProject.instance().removeMapLayer(lyr)
@@ -665,9 +669,13 @@ class pathoGAME:
             print(e)
 
         root = QgsProject.instance().layerTreeRoot()
-        g = root.addGroup(f"Anytown")
-
+        if unload:
+            for lyr in QgsProject.instance().mapLayers().values():
+                QgsProject.instance().removeMapLayer(lyr)
+            return
+        self.iface.mapCanvas().setCanvasColor(Qt.black)
         activate = 'Anytown'
+        g = root.addGroup(f"{activate}")
         layers = []
         junlyr = None
         for ftype in self.type_files:
@@ -682,7 +690,7 @@ class pathoGAME:
                 junlyr = layer
 
             self.canvas.setExtent(layer.extent())
-            self.canvas.setMagnificationFactor(.9)
+            self.canvas.setMagnificationFactor(.8)
             self.canvas.refresh()
 
             layers.append(layer)
