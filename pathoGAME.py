@@ -250,8 +250,11 @@ class pathoGAME:
         """Removes the plugin menu item and icon from QGIS GUI."""
 
         # print "** UNLOAD pathoGAME"
-        self.clear_project()
-
+        try:
+            self.clear_project()
+            self.dockwidget.close()
+        except:
+            pass
         for action in self.actions:
             self.iface.removePluginMenu(
                 self.tr(u'&pathoGAME'),
@@ -642,6 +645,7 @@ class pathoGAME:
         # Remove all layers from map canvas
         # for lyr in QgsProject.instance().mapLayers().values():
         #    QgsProject.instance().removeMapLayer(lyr)
+        self.iface.actionNewProject().trigger()
         try:
             self.time_game.stop()
             self.detect_time.stop()
