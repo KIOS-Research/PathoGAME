@@ -17,26 +17,30 @@
  *                                                                         *
  ***************************************************************************/
 """
+import base64
+import csv
+import json
+import operator
+import os
+import os.path
+import random
+import subprocess
+from urllib.request import urlopen
+
+import numpy as np
+from PyQt5 import uic
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QTimer, QRegExp
 from qgis.PyQt.QtGui import QIcon, QFont, QRegExpValidator, QPixmap, QColor
-from qgis.PyQt.QtWidgets import QAction, QMessageBox, QTableWidgetItem
+from qgis.PyQt.QtWidgets import QAction, QMessageBox, QTableWidgetItem, QTableWidget
+from qgis.core import QgsVectorLayer, QgsProject, QgsLayerTreeLayer, QgsFeatureRequest, QgsExpression, \
+    QgsCoordinateReferenceSystem, QgsMapLayerType, QgsFeature
+
+from .MouseClick import MouseClick
+# Import the code for the DockWidget
+from .pathoGAME_dockwidget import pathoGAMEDockWidget, pathoGAMEDockWidgetScoreList
 # Initialize Qt resources from file resources.py
 from .resources import *
 
-from qgis.core import QgsVectorLayer, QgsProject, QgsLayerTreeLayer, QgsFeatureRequest, QgsExpression, \
-    QgsCoordinateReferenceSystem, QgsMapLayerType, QgsFeature
-from PyQt5 import uic
-import base64
-# Import the code for the DockWidget
-from .pathoGAME_dockwidget import pathoGAMEDockWidget
-import os.path
-import random
-import numpy as np
-from .MouseClick import MouseClick
-from urllib.request import urlopen
-import json
-import operator
-import subprocess
 try:
     from epyt import epanet
 except:
@@ -55,6 +59,7 @@ class pathoGAME:
         :type iface: QgsInterface
         """
         # Save reference to the QGIS interface
+        self.dockwidget_score_list = None
         self.temp_locations = None
         self.heart_choices = []
         self.type_files = []
@@ -222,6 +227,7 @@ class pathoGAME:
         #     text=self.tr('On/Off Menubar of QGIS.'),
         #     callback=self.enable_menu_bar,
         #     parent=self.iface.mainWindow())
+        self.res_file_path = os.path.join(self.plugin_dir, 'dataset', 'results.csv')
 
         self.toolMouseClick = MouseClick(self.canvas, self)
         self.iface.mapCanvas().setMapTool(self.toolMouseClick)
@@ -540,7 +546,6 @@ class pathoGAME:
             self.station = ['Anytown']
         elif self.level_index == 2:
             self.station = ['Any-town2']
-
         elif self.level_index == 3:
             self.station = ['A-nytown3']
 
@@ -606,7 +611,7 @@ class pathoGAME:
         self.heart_choices = [st for st in heart_choices if st not in self.sensors_bydetection]
 
         # print('sensor detect', self.sensors_bydetection)
-        self.d.saveInputFile(os.path.join(self.plugin_dir, 'dataset', 'networks', f"test_1111.inp"))
+        # self.d.saveInputFile(os.path.join(self.plugin_dir, 'dataset', 'networks', f"test_1111.inp"))
         root = QgsProject.instance().layerTreeRoot()
         g = root.addGroup(f"Level {str(self.level_index)}")
 
@@ -621,13 +626,13 @@ class pathoGAME:
 
             if ftype == 'junctions':
                 self.junlyr = layer
-            if ftype == 'pipes':
-                self.canvas.setExtent(layer.extent())
-                self.canvas.setMagnificationFactor(.8)
-                self.canvas.refresh()
 
             self.layers.append(layer)
             self.insert_layer_in_group(g, layer, True)
+
+            self.canvas.setExtent(self.layer_limit.extent())
+            self.canvas.setMagnificationFactor(1)
+            self.canvas.refresh()
 
         self.junlyr.startEditing()
         # Remove all sensors
@@ -675,7 +680,7 @@ class pathoGAME:
             for lyr in QgsProject.instance().mapLayers().values():
                 QgsProject.instance().removeMapLayer(lyr)
             return
-        self.iface.mapCanvas().setCanvasColor(Qt.black)
+        self.iface.mapCanvas().setCanvasColor(Qt.white)
         activate = 'Anytown'
         g = root.addGroup(f"{activate}")
         layers = []
@@ -691,8 +696,7 @@ class pathoGAME:
             if ftype == 'junctions':
                 junlyr = layer
 
-            self.canvas.setExtent(layer.extent())
-            self.canvas.setMagnificationFactor(.8)
+            self.canvas.setExtent(self.layer_limit.extent())
             self.canvas.refresh()
 
             layers.append(layer)
@@ -782,33 +786,77 @@ class pathoGAME:
         self.dockwidget.next_level_btn.setStyleSheet("background : #dfdfdf")
         self.dockwidget.clear_btn.setEnabled(True)
         try:
-            with urlopen(u) as f:
-                f.read()
+            if self.dockwidget.onlinecheckBox.isChecked():
+                with urlopen(u) as f:
+                    f.read()
+            else:
+
+                data = {
+                    "answernodes": str(answernodes),
+                    "contaminant_location": str(location_contaminant),
+                    "playername": self.username,
+                    "remaining_time": str(self.time_left_int),
+                    "totalscore": str(self.user_score_total)
+                }
+
+                file_exists = os.path.isfile(self.res_file_path)
+                # Open the CSV file in append mode
+                with open(self.res_file_path, mode='a', newline='') as file:
+                    writer = csv.DictWriter(file, fieldnames=["answernodes", "contaminant_location", "playername",
+                                                              "remaining_time", "totalscore"])
+                    # Write the header if the file is new
+                    if not file_exists:
+                        writer.writeheader()
+
+                    # Write the data
+                    writer.writerow(data)
         finally:
-            position = self.update_score_list()
+            position = self.update_score_list() - 1
+            self.dockwidget_score_list.tableWidget.item(position, 0).setBackground(QColor('yellow'))
+            self.dockwidget_score_list.tableWidget.item(position, 1).setBackground(QColor('yellow'))
+            self.dockwidget_score_list.tableWidget.selectRow(position)
 
         self.showMessage("PathoGAME",
                          f"Congratulations!                                      "
                          f"\n--------------------------------------------\nYour score: "
                          f"{str(self.user_score_total)}/100                                      \n"
-                         f"Your place: {str(position)}                                      \n"
+                         f"Your place: {str(position+1)}                                      \n"
                          f"--------------------------------------------\n"
                          f"Good job \"{self.username}\".                                       \n\nTry again!", "OK",
                          "Info", fontsize=11)
 
     def update_score_list(self):
 
-        with urlopen(self.falld+'&results=1000') as fr:
-            datascore = fr.read()
+        if self.dockwidget.onlinecheckBox.isChecked():
+            with urlopen(self.falld+'&results=1000') as fr:
+                datascore = fr.read()
+                datascore = json.loads(datascore)
+                datascore = datascore['feeds']
+
+        else:
+            if not os.path.exists(self.res_file_path):
+                # If the file does not exist, create a new one and write the headers
+                with open(self.res_file_path, mode='w', newline='') as file:
+                    writer = csv.DictWriter(file, fieldnames=["answernodes", "contaminant_location", "playername",
+                                                              "remaining_time", "totalscore"])
+                    writer.writeheader()
+
+            # Read data from the CSV file
+            datascore = []  # Initialize as empty list
+            with open(self.res_file_path, mode='r', newline='') as file:
+                reader = csv.DictReader(file)
+
+                # Read each row and add the required fields to datascore
+                for row in reader:
+                    # Append field1 and field5 (assuming these correspond to CSV columns)
+                    datascore.append({
+                        'field1': row['playername'],  # Replace 'id' with actual column name from your CSV
+                        'field5': row['totalscore']  # Replace 'totalscore' with actual column name
+                    })
 
         position = 0
-        datascore = json.loads(datascore)
-
-        #if datascore['results'][0]['statement_id']:
-        datascore = datascore['feeds']
-
-        self.dockwidget.tableWidget.setColumnCount(2)
-        self.dockwidget.tableWidget.setRowCount(len(datascore))
+        self.dockwidget_score_list.tableWidget.setColumnCount(2)
+        self.dockwidget_score_list.tableWidget.setRowCount(len(datascore))
 
         scores = []
         for usersdata in datascore:
@@ -823,10 +871,10 @@ class pathoGAME:
             if dtmp[0] == self.username:
                 position = i + 1
 
-            self.dockwidget.tableWidget.setItem(i, 0, item)
+            self.dockwidget_score_list.tableWidget.setItem(i, 0, item)
             item = QTableWidgetItem(str(dtmp[1]))
             item.setTextAlignment(Qt.AlignCenter)
-            self.dockwidget.tableWidget.setItem(i, 1, item)
+            self.dockwidget_score_list.tableWidget.setItem(i, 1, item)
 
         return position
 
@@ -847,8 +895,10 @@ class pathoGAME:
         self.username = ''
 
         self.type_files = ['pipes', 'pumps', 'valves', 'tanks', 'reservoirs', 'junctions']
-
+        self.layer_limit = QgsVectorLayer(os.path.join(self.plugin_dir, 'dataset', f"anytown_limit.gpkg"),
+                                          'anytown_limit', "ogr")
         self.dockwidget = pathoGAMEDockWidget()
+        self.dockwidget_score_list = pathoGAMEDockWidgetScoreList()
 
         legend = QPixmap(os.path.join(self.plugin_dir, 'icons/legend.png'))
         scaledImage = legend.scaled(250, 180, Qt.KeepAspectRatio)
@@ -875,6 +925,7 @@ class pathoGAME:
         self.dockwidget.next_level_btn.clicked.connect(self.next_level_go)
         self.dockwidget.clear_btn.clicked.connect(self.clear_project)
         self.dockwidget.heart1_btn.clicked.connect(self.heart_choice_selection)
+        self.dockwidget.onlinecheckBox.clicked.connect(self.update_score_list)
 
         self.dockwidget.closingPlugin.connect(self.onClosePlugin)
 
@@ -893,5 +944,8 @@ class pathoGAME:
         self.layers = []
         self.clear_project()
         self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
+        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockwidget_score_list)
         self.dockwidget.show()
-        self.iface.mapCanvas().setCanvasColor(Qt.black)
+        self.dockwidget_score_list.show()
+        self.iface.mapCanvas().setCanvasColor(Qt.white)
+

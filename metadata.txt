@@ -6,7 +6,7 @@
 name=PathoGAME
 qgisMinimumVersion=3.0
 description=The goal is to find the location of the contamination as soon as possible. 
-version=0.4
+version=0.5
 author=Marios S. Kyriakou, Stelios G. Vrachimis, Demetrios G. Eliades, KIOS Research and Innovation Center of Excellence (KIOS CoE)
 email=mariosmsk@gmail.com
 
@@ -20,7 +20,9 @@ repository=https://github.com/KIOS-Research/PathoGAME
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-# changelog=
+# changelog=2024-09-24  PathoGAME 0.5:
+			 Split the main panel to include the score list.
+			 Use the online score if the "Online" checkbox is checked, or use the offline score from the `results.csv` file located in the `dataset` folder if unchecked.
 
 # Tags are comma separated with spaces allowed
 tags=epyt,epanet,inp,network,pathocert,pathogame
