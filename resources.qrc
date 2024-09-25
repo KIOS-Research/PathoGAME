@@ -1,10 +1,13 @@
 <RCC>
-    <qresource prefix="/plugins/pathoGAME" >
-        <file>icons/icon.png</file>
-        <file>icons/heart.png</file>
-        <file>icons/icon_mouse.png</file>
-        <file>icons/pathocert_logo.png</file>
-        <file>icons/legend.png</file>
-        <file>icons/kios.png</file>
-    </qresource>
+  <qresource prefix="/plugins/pathoGAME">
+    <file>icons/pathocert_l.png</file>
+    <file>icons/kios_l.png</file>
+    <file>icons/legend3.png</file>
+    <file>icons/legend2.png</file>
+    <file>icons/icon.png</file>
+    <file>icons/heart.png</file>
+    <file>icons/icon_mouse.png</file>
+    <file>icons/pathocert_logo.png</file>
+    <file>icons/kios.png</file>
+  </qresource>
 </RCC>

@@ -535,7 +535,7 @@ class pathoGAME:
         #    f' Live Level Score  0/{str(self.level_percentage[self.level_index - 1])}')
         self.dockwidget.heart1_btn.setEnabled(True)
         # Level clicks to find the location of contamination
-        self.level_clicks = 2
+        self.level_clicks = 2 # use in mouseclick
 
         self.sensors_bydetection = []
         self.detect_time = QTimer()
@@ -900,11 +900,21 @@ class pathoGAME:
         self.dockwidget = pathoGAMEDockWidget()
         self.dockwidget_score_list = pathoGAMEDockWidgetScoreList()
 
-        legend = QPixmap(os.path.join(self.plugin_dir, 'icons/legend.png'))
-        scaledImage = legend.scaled(250, 180, Qt.KeepAspectRatio)
-        self.dockwidget.legend_label.setPixmap(scaledImage)
-        self.dockwidget.kios_logo.setPixmap(QPixmap(os.path.join(self.plugin_dir, 'icons/kios.png')))
-        self.dockwidget.pathocert_logo.setPixmap(QPixmap(os.path.join(self.plugin_dir, 'icons/pathocert_logo.png')))
+        # legend = QPixmap(os.path.join(self.plugin_dir, 'icons/legend.png'))
+        # scaledImage = legend.scaled(250, 119, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        # self.dockwidget.legend_label.setPixmap(scaledImage)
+
+        # self.dockwidget.kios_logo.setPixmap(QPixmap(os.path.join(self.plugin_dir, 'icons/kios_l.png')))
+        # self.dockwidget.pathocert_logo.setPixmap(QPixmap(os.path.join(self.plugin_dir, 'icons/pathocert_l.png')))
+        # Load and scale PathoCERT logo with high-quality scaling
+        pathocert_pixmap = QPixmap(os.path.join(self.plugin_dir, 'icons/pathocert_l.png'))
+        scaled_pathocert_pixmap = pathocert_pixmap.scaled(150, 55, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.dockwidget.pathocert_logo.setPixmap(scaled_pathocert_pixmap)
+
+        # Load and scale KIOS logo with high-quality scaling
+        kios_pixmap = QPixmap(os.path.join(self.plugin_dir, 'icons/kios_l.png'))
+        scaled_kios_pixmap = kios_pixmap.scaled(150, 55, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.dockwidget.kios_logo.setPixmap(scaled_kios_pixmap)
 
         # add hearts
         heart_path_btn = os.path.join(self.plugin_dir, 'icons/heart.png')

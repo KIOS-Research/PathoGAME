@@ -53,6 +53,7 @@ class MouseClick(QgsMapTool):
 
             self.drawSelf.user_choice = ''
             self.drawSelf.user_score = 0
+
             if self.drawSelf.level_clicks > 0:
                 for layer in layers:
                     if layer.type():
@@ -160,6 +161,8 @@ class MouseClick(QgsMapTool):
                             except:
                                 pass
                             return
+            # else:
+            #    self.drawSelf.next_level_go()
 
     def score_function(self, level_weight=2, level_points=0, time_weight=0.25, time_remaining=0,
                        proximity_weight=10, proximity_factor=0):

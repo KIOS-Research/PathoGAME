@@ -23,6 +23,15 @@
 """
 
 import os
+import os
+import sys
+
+# Add the plugin path to the Python sys.path if it isn't already present
+plugin_path = os.path.dirname(__file__)
+if plugin_path not in sys.path:
+    sys.path.append(plugin_path)
+
+import resources_rc
 
 from qgis.PyQt import QtGui, QtWidgets, uic
 from qgis.PyQt.QtCore import pyqtSignal
