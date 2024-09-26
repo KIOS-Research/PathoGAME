@@ -140,6 +140,27 @@ color: rgb(0, 0, 127);</string>
             </layout>
            </item>
            <item>
+            <widget class="QPushButton" name="next_level_btn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Next Level</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QTextBrowser" name="textBrowser">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
@@ -157,7 +178,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;What's this?&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;The goal is to find the location of the contamination as soon as possible. In the first level, your help is 10 sensors (cyan color) that detect the contamination (red color) in the water network. In the second level, your help is 5 sensors and in the last level, your help is 3 sensors. Also, for each level, you have a heart help where is an extra sensor in a random location. The location of contamination is random. The user has 2 options to select the right location of the contamination at each level. Good luck! &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;The goal is to find the location of the contamination as soon as possible. In the first level, your help is 10 sensors (cyan color) that detect the contamination (red color) in the water network. In the second level, your help is 5 sensors and in the last level, your help is 3 sensors. Also, for each level, you have a heart help where is an extra sensor in a random location. The location of contamination is random. Good luck! &lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/pathoGAME/icons/legend3.png&quot; width=&quot;330&quot; /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
@@ -183,28 +204,10 @@ background-color: rgb(1, 131, 16);</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="next_level_btn">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>Next level</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="submit_btn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>12</pointsize>

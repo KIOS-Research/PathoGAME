@@ -60,7 +60,7 @@ class pathoGAME:
         """
         # Save reference to the QGIS interface
         self.dockwidget_score_list = None
-        self.temp_locations = None
+        # self.temp_locations = None
         self.heart_choices = []
         self.type_files = []
         self.clickPhotos = None
@@ -343,7 +343,7 @@ class pathoGAME:
 
         if self.time_left_int == 0:
             self.submit_game()
-            self.dockwidget.submit_btn.setEnabled(True)
+            self.dockwidget.submit_btn.setEnabled(False)
             self.time_game.stop()
             self.detect_time.stop()
             self.dockwidget.timer_lbl.setText(str('00:00'))
@@ -354,6 +354,12 @@ class pathoGAME:
         else:
             self.dockwidget.timer_lbl.setStyleSheet("background-color: #dfdfdf")
 
+        if self.time_left_int < 40:
+            self.dockwidget.submit_btn.setEnabled(True)
+            self.dockwidget.next_level_btn.setEnabled(False)
+            self.dockwidget.next_level_btn.setStyleSheet("background : #dfdfdf")
+            self.dockwidget.submit_btn.setStyleSheet("background : rgb(1, 255, 115)")
+
         if (self.time_left_int % 40) == 0:
             if self.show_answer == 0:
                 self.iface.messageBar().pushMessage("PathoGAME", f"The location of the contaminant at level {str(self.level_index)} show "
@@ -362,6 +368,7 @@ class pathoGAME:
                 QgsProject.instance().removeMapLayer(self.temp_location)
             except:
                 pass
+
             self.temp_location = QgsVectorLayer("Point?crs=epsg:4326", "LOCATION", "memory")
             self.temp_location.loadNamedStyle(os.path.join(self.plugin_dir, "qmls", f'location.qml'))
             root = QgsProject.instance().layerTreeRoot()
@@ -462,6 +469,7 @@ class pathoGAME:
         except Exception as e:
             print(e)
 
+        self.dockwidget.submit_btn.setEnabled(False)
         self.setMouseClickMapTool()
         self.dockwidget.heart1_btn.setEnabled(True)
 
@@ -503,8 +511,6 @@ class pathoGAME:
                 self.time_left_int = 41
                 self.dockwidget.next_level_btn.setEnabled(False)
                 self.dockwidget.next_level_btn.setStyleSheet("background : #dfdfdf")
-
-                self.dockwidget.submit_btn.setEnabled(True)
                 self.dockwidget.submit_btn.setStyleSheet("background : rgb(1, 255, 115)")
 
             self.update_time()
@@ -716,9 +722,9 @@ class pathoGAME:
     def submit_game(self):
 
         self.temp_location = QgsVectorLayer("Point?crs=epsg:4326", "LOCATION", "memory")
-        self.temp_locations = QgsVectorLayer("Point?crs=epsg:4326", "ALL-LOCATIONS", "memory")
+        # self.temp_locations = QgsVectorLayer("Point?crs=epsg:4326", "ALL-LOCATIONS", "memory")
         self.temp_location.loadNamedStyle(os.path.join(self.plugin_dir, "qmls", f'location.qml'))
-        self.temp_locations.loadNamedStyle(os.path.join(self.plugin_dir, "qmls", f'locations.qml'))
+        # self.temp_locations.loadNamedStyle(os.path.join(self.plugin_dir, "qmls", f'locations.qml'))
         root = QgsProject.instance().layerTreeRoot()
         g = root.findGroup(f"Level {str(self.level_index)}")
         self.insert_layer_in_group(g, self.temp_location, True)
@@ -731,24 +737,24 @@ class pathoGAME:
                 self.temp_location.addFeatures([feat])
                 self.temp_location.commitChanges()
                 break
-        for feature_loc in self.junlyr.getFeatures():
-            if feature_loc['id'] in self.location_contaminant:
-                feat = QgsFeature()
-                feat.setGeometry(feature_loc.geometry())
-                self.temp_locations.startEditing()
-                self.temp_locations.addFeatures([feat])
-                self.temp_locations.commitChanges()
+        # for feature_loc in self.junlyr.getFeatures():
+        #     if feature_loc['id'] in self.location_contaminant:
+        #         feat = QgsFeature()
+        #         feat.setGeometry(feature_loc.geometry())
+        #         self.temp_locations.startEditing()
+        #         self.temp_locations.addFeatures([feat])
+        #         self.temp_locations.commitChanges()
         try:
             self.temp_location.reload()
             self.temp_location.triggerRepaint()
         except:
             pass
-        try:
-            self.temp_locations.reload()
-            self.temp_locations.triggerRepaint()
-        except:
-            pass
-        self.insert_layer_in_group(g, self.temp_locations, True)
+        # try:
+        #     self.temp_locations.reload()
+        #     self.temp_locations.triggerRepaint()
+        # except:
+        #     pass
+        # self.insert_layer_in_group(g, self.temp_locations, True)
 
         bb = self.r.encode('ascii')
         mm = base64.b64decode(bb)
